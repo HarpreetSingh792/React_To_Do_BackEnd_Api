@@ -23,7 +23,7 @@ config({
     path:"./data/key.env"
 })
 
-const port = process.env.port;
+const port = process.env.port||4000;
 _dbConnect();
 
 
