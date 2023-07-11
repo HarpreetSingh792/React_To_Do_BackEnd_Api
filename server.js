@@ -3,8 +3,8 @@ export const _dbConnect =()=>{
     mongoose.connect(process.env.MONGO_URI, {
         dbName: "Users"
     })
-        .then(() => {
-            console.log("Connected Successfully!")
+        .then((c) => {
+            console.log(`Database Connected with ${c.connection.host}`)
         }
         )
         .catch((err) => {
