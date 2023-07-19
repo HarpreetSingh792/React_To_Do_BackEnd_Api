@@ -1,6 +1,5 @@
 import { _dbConnect } from "./server.js";
 import express from "express";
-export const app = express();
 import { config } from "dotenv";
 import userRoutes from "./routes/user.js"
 import taskRoutes from "./routes/task.js"
@@ -9,19 +8,25 @@ import cors from "cors";
 import { errorMiddleware } from "./middlewares/errors.js";
 
 
+export const app = express();
+config({
+    path:"./data/key.env"
+})
+
+//Middleware
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
     origin:process.env.FrontEnd_URL,
     methods:['GET','POST','PUT','DELTE'],
-    credentials:true
+    credentials:true,
 }))
+
+//Routes
 app.use("/api/v1/user/",userRoutes);
 app.use("/api/v1/task/",taskRoutes);
 app.use(errorMiddleware);
-config({
-    path:"./data/key.env"
-})
+
 
 const port = process.env.port||4000;
 _dbConnect();

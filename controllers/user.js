@@ -27,7 +27,7 @@ export const userLogin = async (req, res, next) => {
         if (!user) return next(new ErrorHandler(404, "Invalid email and password"));
         if (!isMatch) return next(new ErrorHandler(404, "Invalid email and password"));
         const id = user._id;
-        jwtToken(res, id, 200, `Welcome Back ${user.name}`);
+        jwtToken(user._id,res, `Welcome Back ${user.name}`,200);
     } catch (error) {
         next(error);
     }
@@ -36,7 +36,8 @@ export const userLogin = async (req, res, next) => {
 
 export const userRegister = async (req, res, next) => {
     try {
-        const { email, name, password } = req.body;
+
+        const { email, name, password } = req.body;   
         let hashedData = await bcrypt.hash(password, 15);
         let user = await UserModel.findOne({ email });
         if (user) return next(new ErrorHandler(404,"Email already exists"));
@@ -46,8 +47,8 @@ export const userRegister = async (req, res, next) => {
             email,
             password: hashedData
         });
-        const { id } = user._id;
-        jwtToken(res, id, 201, "Created Successfully");
+        jwtToken(user._id,res, "Created Successfully",201);
+        res.json({"Hooray":"horray"});
     } catch (error) {
         next(error)
     }
