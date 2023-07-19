@@ -1,9 +1,6 @@
 import ErrorHandler from "../middlewares/errors.js";
 import { TaskModel } from "../models/tasks.js";
 
-
-
-
 export const newTask = async (req, res, next) => {
     try {
         const { title, description } = req.body;
