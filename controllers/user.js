@@ -61,3 +61,4 @@ export const Logout = (req,res)=>{
         message:"Logged Out",
         user:req.user,
     })
+}
