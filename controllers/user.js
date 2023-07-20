@@ -7,8 +7,7 @@ import ErrorHandler from "../middlewares/errors.js";
 export const userDetails = async (req, res, next) => {
 
     try {
-        const { id } = req.user;
-        const user = await UserModel.findById(id);
+        const user = await UserModel.findById(req.user._id);
         res.status(200).json({
             success: "true",
             user
