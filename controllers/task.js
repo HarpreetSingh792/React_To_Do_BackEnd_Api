@@ -5,7 +5,7 @@ export const newTask = async (req, res, next) => {
     try {
         const { title, description } = req.body;
 
-        await TaskModel.create({ title, description, user: req.user.id });
+        await TaskModel.create({ title, description, user: req.user._id });
         res.status(201).json({
             success: true,
             message: "Task created successfully"
@@ -17,7 +17,7 @@ export const newTask = async (req, res, next) => {
 
 export const getMyTask = async (req, res, next) => {
     try {
-        const user = await TaskModel.find({ user: req.user.id });
+        const user = await TaskModel.find({ user: req.user._id });
         res.status(200).json({
             success: true,
             user
